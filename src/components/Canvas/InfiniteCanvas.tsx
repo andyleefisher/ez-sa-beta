@@ -174,7 +174,7 @@ export function InfiniteCanvas() {
   };
 
   return (
-    <div className="h-screen w-screen overflow-hidden bg-gray-50 flex flex-col">
+    <div className="h-screen w-screen overflow-hidden bg-gradient-to-br from-blue-50/50 to-gray-50/50 flex flex-col">
       <TopNav>
         <NavControls
           onAddCard={handleAddCard}

@@ -44,19 +44,18 @@ export const Card = ({
   const textareaRef = useRef<HTMLTextAreaElement>(null);
 
   const cardColors = {
-    title: 'bg-gray-50 border-gray-200',
-    idea: 'bg-blue-50 border-blue-200',
-    evidence: 'bg-green-50 border-green-200',
-    analysis: 'bg-purple-50 border-purple-200',
+    title: 'bg-gradient-to-br from-gray-50 to-gray-100 border-gray-200/70',
+    idea: 'bg-gradient-to-br from-blue-50 to-blue-100/50 border-blue-200/70',
+    evidence: 'bg-gradient-to-br from-emerald-50 to-emerald-100/50 border-emerald-200/70',
+    analysis: 'bg-gradient-to-br from-violet-50 to-violet-100/50 border-violet-200/70',
   };
 
-  const columns = [
-    { id: 'col-1', title: 'P1' },
-    { id: 'col-2', title: 'P2' },
-    { id: 'col-3', title: 'P3' },
-    { id: 'col-4', title: 'P4' },
-    { id: 'col-5', title: 'P5' },
-  ];
+  const typeColors = {
+    title: 'text-gray-600',
+    idea: 'text-blue-600',
+    evidence: 'text-emerald-600',
+    analysis: 'text-violet-600',
+  };
 
   useEffect(() => {
     if (isEditing && textareaRef.current) {
@@ -69,22 +68,41 @@ export const Card = ({
     onContentChange(e.target.value);
   };
 
+  const columns = [
+    { id: 'col-1', title: 'P1' },
+    { id: 'col-2', title: 'P2' },
+    { id: 'col-3', title: 'P3' },
+    { id: 'col-4', title: 'P4' },
+    { id: 'col-5', title: 'P5' },
+  ];
+
   return (
     <div className="relative w-full">
       <UICard
         className={cn(
           'p-4 w-full',
           cardColors[type],
-          'hover:shadow-lg transition-shadow'
+          'shadow-sm hover:shadow-md',
+          'card-transition',
+          'backdrop-blur-sm'
         )}
+        data-card
       >
-        <div className="flex justify-between items-start mb-2">
-          <div className="text-xs font-semibold capitalize">{type}</div>
-          <div className="flex gap-1">
+        <div className="flex justify-between items-start mb-3">
+          <div className={cn(
+            "text-xs font-semibold capitalize px-2 py-1",
+            "rounded-full",
+            "border border-current/20",
+            "bg-white/50",
+            typeColors[type]
+          )}>
+            {type}
+          </div>
+          <div className="flex gap-1.5">
             <Button
-              variant="outline"
+              variant="ghost"
               size="sm"
-              className="h-8 w-8 p-0 bg-white hover:bg-gray-50"
+              className="h-8 w-8 p-0 hover:bg-white/50"
               onClick={() => setIsEditing(!isEditing)}
             >
               <Pen className="h-4 w-4 text-gray-600" />
@@ -94,19 +112,23 @@ export const Card = ({
                 <DropdownMenu>
                   <DropdownMenuTrigger asChild>
                     <Button
-                      variant="outline"
+                      variant="ghost"
                       size="sm"
-                      className="h-8 w-8 p-0 bg-white hover:bg-gray-50"
+                      className="h-8 w-8 p-0 hover:bg-white/50"
                     >
                       <MoveHorizontal className="h-4 w-4 text-gray-600" />
                     </Button>
                   </DropdownMenuTrigger>
-                  <DropdownMenuContent align="end">
+                  <DropdownMenuContent 
+                    align="end" 
+                    className="w-32 bg-white shadow-lg border border-gray-200"
+                  >
                     {columns.map((column) => (
                       <DropdownMenuItem
                         key={column.id}
                         disabled={column.id === columnId}
                         onClick={() => onMove(id, column.id)}
+                        className="text-sm hover:bg-gray-50"
                       >
                         Move to {column.title}
                       </DropdownMenuItem>
@@ -114,9 +136,9 @@ export const Card = ({
                   </DropdownMenuContent>
                 </DropdownMenu>
                 <Button
-                  variant="outline"
+                  variant="ghost"
                   size="sm"
-                  className="h-8 w-8 p-0 bg-white hover:bg-gray-50"
+                  className="h-8 w-8 p-0 hover:bg-white/50"
                   onClick={() => setIsDeleteDialogOpen(true)}
                 >
                   <Trash2 className="h-4 w-4 text-red-500" />
@@ -132,7 +154,11 @@ export const Card = ({
               value={content}
               onChange={handleTextareaChange}
               className={cn(
-                "w-full p-2 bg-transparent border border-gray-300 rounded resize-none",
+                "w-full p-3 bg-white/50 rounded-lg",
+                "border border-gray-200/50",
+                "focus:ring-2 focus:ring-blue-500/20 focus:border-blue-500/30",
+                "transition-shadow duration-200",
+                "resize-none",
                 "min-h-[100px]"
               )}
               placeholder={`Enter your ${type} here...`}
@@ -141,7 +167,8 @@ export const Card = ({
           ) : (
             <div 
               className={cn(
-                "w-full p-2 whitespace-pre-wrap break-words",
+                "w-full p-3",
+                "whitespace-pre-wrap break-words",
                 "min-h-[100px]"
               )}
               data-card-content
@@ -153,9 +180,9 @@ export const Card = ({
       </UICard>
 
       <AlertDialog open={isDeleteDialogOpen} onOpenChange={setIsDeleteDialogOpen}>
-        <AlertDialogContent>
+        <AlertDialogContent className="sm:max-w-[425px]">
           <AlertDialogHeader>
-            <AlertDialogTitle>Are you sure?</AlertDialogTitle>
+            <AlertDialogTitle>Delete this card?</AlertDialogTitle>
             <AlertDialogDescription>
               This action cannot be undone. This will permanently delete this card.
             </AlertDialogDescription>
@@ -167,7 +194,7 @@ export const Card = ({
                 onDelete(id);
                 setIsDeleteDialogOpen(false);
               }}
-              className="bg-red-500 hover:bg-red-600"
+              className="bg-red-500 hover:bg-red-600 transition-colors"
             >
               Delete
             </AlertDialogAction>

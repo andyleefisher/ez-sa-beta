@@ -11,37 +11,37 @@ interface NavControlsProps {
 export function NavControls({ onAddCard, onZoomIn, onZoomOut, onScreenshot }: NavControlsProps) {
   return (
     <>
-      <div className="flex items-center gap-4">
+      <div className="flex items-center gap-3">
         <Button
           variant="outline"
-          className="flex items-center gap-2"
+          className="flex items-center gap-2 px-4 h-10 bg-white hover:bg-gray-50/80 shadow-sm"
           onClick={() => onAddCard('title')}
         >
-          <Plus className="h-5 w-5" />
+          <Plus className="h-4 w-4" />
           Add Title
         </Button>
         <Button
           variant="outline"
-          className="flex items-center gap-2"
+          className="flex items-center gap-2 px-4 h-10 bg-white hover:bg-gray-50/80 shadow-sm"
           onClick={() => onAddCard('idea')}
         >
-          <Plus className="h-5 w-5" />
+          <Plus className="h-4 w-4" />
           Add Idea
         </Button>
         <Button
           variant="outline"
-          className="flex items-center gap-2"
+          className="flex items-center gap-2 px-4 h-10 bg-white hover:bg-gray-50/80 shadow-sm"
           onClick={() => onAddCard('evidence')}
         >
-          <Plus className="h-5 w-5" />
+          <Plus className="h-4 w-4" />
           Add Evidence
         </Button>
         <Button
           variant="outline"
-          className="flex items-center gap-2"
+          className="flex items-center gap-2 px-4 h-10 bg-white hover:bg-gray-50/80 shadow-sm"
           onClick={() => onAddCard('analysis')}
         >
-          <Plus className="h-5 w-5" />
+          <Plus className="h-4 w-4" />
           Add Analysis
         </Button>
       </div>
@@ -50,25 +50,25 @@ export function NavControls({ onAddCard, onZoomIn, onZoomOut, onScreenshot }: Na
           variant="outline"
           size="icon"
           onClick={onScreenshot}
-          className="h-14 w-14 bg-white hover:bg-gray-100"
+          className="h-10 w-10 bg-white hover:bg-gray-50/80 shadow-sm"
         >
-          <Camera className="h-8 w-8 text-gray-900" />
+          <Camera className="h-5 w-5 text-gray-700" />
         </Button>
         <Button
           variant="outline"
           size="icon"
           onClick={onZoomIn}
-          className="h-14 w-14 bg-white hover:bg-gray-100"
+          className="h-10 w-10 bg-white hover:bg-gray-50/80 shadow-sm"
         >
-          <ZoomIn className="h-8 w-8 text-gray-900" />
+          <ZoomIn className="h-5 w-5 text-gray-700" />
         </Button>
         <Button
           variant="outline"
           size="icon"
           onClick={onZoomOut}
-          className="h-14 w-14 bg-white hover:bg-gray-100"
+          className="h-10 w-10 bg-white hover:bg-gray-50/80 shadow-sm"
         >
-          <ZoomOut className="h-8 w-8 text-gray-900" />
+          <ZoomOut className="h-5 w-5 text-gray-700" />
         </Button>
       </div>
     </>

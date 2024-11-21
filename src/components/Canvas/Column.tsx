@@ -22,24 +22,29 @@ export const Column = ({
     <div
       ref={setNodeRef}
       className={cn(
-        'flex-1 min-h-fit rounded-lg',
-        'bg-gray-100 border border-gray-200',
+        'flex-1 min-h-fit rounded-xl',
+        'bg-white/80 backdrop-blur-sm',
+        'border border-gray-200/50',
         'flex flex-col',
         'relative',
-        isOver && 'bg-gray-200/50 border-gray-300',
-        isStaging && 'bg-gray-50'
+        'shadow-lg shadow-blue-900/5',
+        'transition-all duration-200',
+        isOver && 'bg-blue-50/50 border-blue-200/50 scale-[1.02]',
+        isStaging && 'bg-white/90'
       )}
       style={{
         height: '100%',
-        minHeight: '1040px' // Increased from 800px to 1040px (30% more)
+        minHeight: '1040px'
       }}
       data-column
     >
       <div className={cn(
-        "py-3 px-4 border-b border-gray-200",
-        "text-lg font-semibold text-center",
-        "sticky top-0 bg-inherit z-10",
-        isComplete ? "text-red-600" : "text-gray-700"
+        "py-4 px-4",
+        "column-header",
+        "rounded-t-xl",
+        "title-font text-lg font-semibold text-center",
+        "sticky top-0 z-10",
+        isComplete ? "text-blue-600" : "text-gray-700"
       )}>
         {title}
       </div>

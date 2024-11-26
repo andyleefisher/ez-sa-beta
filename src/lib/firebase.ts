@@ -3,18 +3,24 @@ import { getAuth } from 'firebase/auth';
 import { getFirestore } from 'firebase/firestore';
 
 const firebaseConfig = {
-  apiKey: import.meta.env.VITE_FIREBASE_API_KEY,
-  authDomain: import.meta.env.VITE_FIREBASE_AUTH_DOMAIN,
-  projectId: import.meta.env.VITE_FIREBASE_PROJECT_ID,
-  storageBucket: import.meta.env.VITE_FIREBASE_STORAGE_BUCKET,
-  messagingSenderId: import.meta.env.VITE_FIREBASE_MESSAGING_SENDER_ID,
-  appId: import.meta.env.VITE_FIREBASE_APP_ID,
+  apiKey: "AIzaSyBtdQtk18i0pRaJXnM3ps6NZsp0aUX4_Jc",
+  authDomain: "ez-sa-beta.firebaseapp.com",
+  projectId: "ez-sa-beta",
+  storageBucket: "ez-sa-beta.firebasestorage.app",
+  messagingSenderId: "894716107102",
+  appId: "1:894716107102:web:1364b1c5078ed5fe1517cf"
 };
 
-if (!firebaseConfig.apiKey) {
-  throw new Error('Firebase API key is missing. Check your environment variables.');
-}
-
+// Initialize Firebase
 const app = initializeApp(firebaseConfig);
 export const auth = getAuth(app);
 export const db = getFirestore(app);
+
+// Development mode and fixed user
+export const isDevelopment = true;
+export const DEV_USER = {
+  uid: 'ez-sa-beta-admin',
+  email: 'admin@ez-sa-beta.com',
+  displayName: 'EZ SA Beta Admin',
+  photoURL: null
+};

@@ -99,6 +99,16 @@ export const Card = ({
             {type}
           </div>
           <div className="flex gap-1.5">
+            {type !== 'title' && (
+              <Button
+                variant="ghost"
+                size="sm"
+                className="h-8 w-8 p-0 hover:bg-white/50"
+                onClick={() => setIsDeleteDialogOpen(true)}
+              >
+                <Trash2 className="h-4 w-4 text-red-500" />
+              </Button>
+            )}
             <Button
               variant="ghost"
               size="sm"
@@ -108,42 +118,32 @@ export const Card = ({
               <Pen className="h-4 w-4 text-gray-600" />
             </Button>
             {type !== 'title' && (
-              <>
-                <DropdownMenu>
-                  <DropdownMenuTrigger asChild>
-                    <Button
-                      variant="ghost"
-                      size="sm"
-                      className="h-8 w-8 p-0 hover:bg-white/50"
-                    >
-                      <MoveHorizontal className="h-4 w-4 text-gray-600" />
-                    </Button>
-                  </DropdownMenuTrigger>
-                  <DropdownMenuContent 
-                    align="end" 
-                    className="w-32 bg-white shadow-lg border border-gray-200"
+              <DropdownMenu>
+                <DropdownMenuTrigger asChild>
+                  <Button
+                    variant="ghost"
+                    size="sm"
+                    className="h-8 w-8 p-0 hover:bg-white/50"
                   >
-                    {columns.map((column) => (
-                      <DropdownMenuItem
-                        key={column.id}
-                        disabled={column.id === columnId}
-                        onClick={() => onMove(id, column.id)}
-                        className="text-sm hover:bg-gray-50"
-                      >
-                        Move to {column.title}
-                      </DropdownMenuItem>
-                    ))}
-                  </DropdownMenuContent>
-                </DropdownMenu>
-                <Button
-                  variant="ghost"
-                  size="sm"
-                  className="h-8 w-8 p-0 hover:bg-white/50"
-                  onClick={() => setIsDeleteDialogOpen(true)}
+                    <MoveHorizontal className="h-4 w-4 text-gray-600" />
+                  </Button>
+                </DropdownMenuTrigger>
+                <DropdownMenuContent 
+                  align="end" 
+                  className="w-32 bg-white shadow-lg border border-gray-200"
                 >
-                  <Trash2 className="h-4 w-4 text-red-500" />
-                </Button>
-              </>
+                  {columns.map((column) => (
+                    <DropdownMenuItem
+                      key={column.id}
+                      disabled={column.id === columnId}
+                      onClick={() => onMove(id, column.id)}
+                      className="text-sm hover:bg-gray-50"
+                    >
+                      Move to {column.title}
+                    </DropdownMenuItem>
+                  ))}
+                </DropdownMenuContent>
+              </DropdownMenu>
             )}
           </div>
         </div>
@@ -158,7 +158,7 @@ export const Card = ({
                 "border border-gray-200/50",
                 "focus:ring-2 focus:ring-blue-500/20 focus:border-blue-500/30",
                 "transition-shadow duration-200",
-                "resize-none",
+                "resize-none text-gray-900",
                 "min-h-[100px]"
               )}
               placeholder={`Enter your ${type} here...`}
@@ -169,7 +169,9 @@ export const Card = ({
               className={cn(
                 "w-full p-3",
                 "whitespace-pre-wrap break-words",
-                "min-h-[100px]"
+                "min-h-[100px]",
+                content ? "text-gray-900" : "text-gray-400",
+                "transition-colors duration-200"
               )}
               data-card-content
             >
